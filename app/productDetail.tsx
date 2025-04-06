@@ -11,6 +11,8 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { DATA } from "./utils/constants";
 import { ProductList } from "./models/model";
 import Header from "./components/Header";
+import * as Animatable from 'react-native-animatable';
+
 
 const ProductDetail = () => {
   const { id } = useLocalSearchParams();
@@ -45,8 +47,13 @@ const ProductDetail = () => {
           style={styles.thumbnailContainer}
         >
           {product.images.map((img, index) => (
-            <TouchableOpacity key={index} onPress={() => setSelectedImage(img)}>
-              <Image
+            <TouchableOpacity
+              key={index}
+              onPress={() => setSelectedImage(img)}
+            >
+              <Animatable.Image
+                animation={selectedImage === img ? "fadeIn" : undefined}
+                duration={500}
                 source={{ uri: img }}
                 style={[
                   styles.thumbnail,
